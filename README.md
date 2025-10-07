@@ -1,4 +1,4 @@
-# Net-Capture-Portfolio
+# labs-pcap
 
 A Python/Docker project to capture live network traffic into rotating pcap files, process them to extract metadata, and demonstrate network analysis pipelines.
 
@@ -32,8 +32,8 @@ git --version
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
-cd net-capture-portfolio
+git clone git@github.com:raybags-dev/labs-pcaps.git
+cd labs-pcap
 ```
 
 ### 2. Run the Preparation Script
@@ -104,7 +104,7 @@ cat output/capture-20241007T082030Z.json | head -n 50
 ## 📁 Project Structure
 
 ```
-net-capture-portfolio/
+labs-pcap/
 ├── capture/                    # Capture service
 │   ├── Dockerfile             # Container definition
 │   ├── capture.py             # Main capture logic
