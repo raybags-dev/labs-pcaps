@@ -23,6 +23,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME_PERSONAL }}
           password: ${{ secrets.DOCKERHUB_TOKEN_PERSONAL }}
+
       - name: Install dependencies
         run: npm ci
 
@@ -35,10 +36,10 @@ jobs:
           context: .
           push: true
           tags: |
-            tonnybags/labs-pcaps:latest
-            tonnybags/labs-pcaps:v${{ secrets.VERSION }}
-          cache-from: type=registry,ref=tonnybags/labs-pcaps:buildcache
-          cache-to: type=registry,ref=tonnybags/labs-pcaps:buildcache,mode=max
+            net-capture:latest
+            net-capture:v${{ secrets.VERSION }}
+          cache-from: type=registry,ref=net-capture:buildcache
+          cache-to: type=registry,ref=net-capture:buildcache,mode=max
 
       - name: Cleanup
         run: docker image prune -af --filter "until=24h"
