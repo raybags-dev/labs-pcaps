@@ -1,0 +1,48 @@
+networks:
+  netcap-net:
+    driver: bridge
+
+services:
+  capture:
+    build:
+      context: ./capture
+    image: net-capture:latest
+    container_name: net-capture
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    network_mode: "host"
+    volumes:
+      - ./pcaps:/app/pcaps
+      - ./output:/app/output
+    environment:
+      - PCAP_DIR=/app/pcaps
+      - OUTPUT_DIR=/app/output
+      - ROTATE_SIZE_MB=10
+      - MAX_FILES=20
+      - CAPTURE_IFACE=any
+    restart: unless-stopped
+
+  generator:
+    build:
+      context: ./generator
+    image: net-gen:latest
+    container_name: net-gen
+    depends_on:
+      - capture
+    networks:
+      - netcap-net
+    environment:
+      - TARGET=https://raybags.com
+      - REQUEST_INTERVAL=5
+      - REQUEST_COUNT=0
+    restart: unless-stopped
+
+  demo-http:
+    image: hashicorp/http-echo
+    command: ["-text=hello"]
+    ports:
+      - "8080:5678"
+    networks:
+      - netcap-net
+    restart: unless-stopped
