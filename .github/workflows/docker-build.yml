@@ -24,12 +24,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME_PERSONAL }}
           password: ${{ secrets.DOCKERHUB_TOKEN_PERSONAL }}
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Debug node_modules
-        run: ls -la node_modules | grep dotenv || echo "dotenv NOT FOUND"
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
