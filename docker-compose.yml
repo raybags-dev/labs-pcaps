@@ -15,6 +15,7 @@ services:
     volumes:
       - ./pcaps:/app/pcaps
       - ./output:/app/output
+    user: root
     environment:
       - PCAP_DIR=/app/pcaps
       - OUTPUT_DIR=/app/output
